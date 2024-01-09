@@ -9,7 +9,9 @@ const Header = () => {
         (async () => {
             // TODO 5.b - Get the active account
             const accounts = await dappClient().getAccount();
-            setAccount(accounts.account);
+            if (accounts.account != null) {
+                setAccount(accounts.account.address);
+            }
 
         })();
     }, []);
@@ -54,8 +56,6 @@ const Header = () => {
                                     &nbsp; Collection
                                 </span>
                             </Link>
-
-
                         </div>
                     </div>
                     {/* Connect Wallet Button */}

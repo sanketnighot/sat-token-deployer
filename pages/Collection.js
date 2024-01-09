@@ -13,12 +13,11 @@ const Collection = () => {
             // TODO 5.b - Get the active account
             const accounts = await dappClient().getAccount();
             console.log(accounts.account);
-            if (!accounts.account) {
+            if (accounts.account != null) {
                 setCollectionAdmin(accounts.account.address);
             }
-
         })();
-    }, [collectionAdmin]);
+    }, []);
 
     return (
         <>
