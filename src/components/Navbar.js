@@ -52,7 +52,7 @@ const Navbar = () => {
                 </div>
             </div>
             {/* Mobile Menu */}
-            <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}>
+            <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} drop-shadow-xl`}>
                 <Link href="/" className="block py-2 px-4 text-sm hover:bg-black-500 transition duration-300 text-white">Home</Link>
                 <Link href="/collection" className="block py-2 px-4 text-sm hover:bg-black-500 transition duration-300 text-white">Collection</Link>
                 <div className="flex">
