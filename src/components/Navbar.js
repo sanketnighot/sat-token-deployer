@@ -1,9 +1,30 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import Link from 'next/link';
+// import { dappClient } from '../../../utils/walletconnect'
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    // const [account, setAccount] = useState(false);
+    // useEffect(() => {
+    //     (async () => {
+    //         // TODO 5.b - Get the active account
+    //         const accounts = await dappClient().getAccount();
+    //         setAccount(accounts.account);
+
+    //     })();
+    // }, []);
+
+    // const onConnectWallet = async () => {
+    //     await dappClient().connectAccount();
+    //     const accounts = await dappClient().getAccount();
+    //     setAccount(accounts.account);
+    // };
+
+    // const onDisconnectWallet = async () => {
+    //     await dappClient().disconnectWallet();
+    //     setAccount(false);
+    // };
 
     return (
         <nav className="drop-shadow-xl z-40 fixed w-full bg-black">
