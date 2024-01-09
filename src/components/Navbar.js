@@ -27,9 +27,11 @@ const Navbar = () => {
                     </div>
                     {/* Connect Wallet Button */}
                     <div className="hidden md:flex space-x-1">
-                        <button className="px-4 py-2 bg-black-500 text-white rounded hover:bg-black-600 transition duration-300">
-                            Connect Wallet
-                        </button>
+                        <div className="flex items-center py-2 px-2">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3" />
+                            </svg> &nbsp; Connect Wallet
+                        </div>
                     </div>
 
 
@@ -55,10 +57,10 @@ const Navbar = () => {
             <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} drop-shadow-xl`}>
                 <Link href="/" className="block py-2 px-4 text-sm hover:bg-black-500 transition duration-300 text-white">Home</Link>
                 <Link href="/collection" className="block py-2 px-4 text-sm hover:bg-black-500 transition duration-300 text-white">Collection</Link>
-                <div className="flex">
-                    <button className="block px-4 py-2 bg-black-500 text-white rounded hover:bg-black-500 transition duration-300">
-                        Connect Wallet
-                    </button>
+                <div className="flex items-center py-2 px-2 text-sm">
+                    <svg class="w-3 h-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3" />
+                    </svg> &nbsp; Connect Wallet
                 </div>
             </div>
         </nav>
