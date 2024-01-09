@@ -1,9 +1,7 @@
-"use client";
 import React, { useState } from 'react'
-import Token from '../../components/Token';
-import Navbar from '../../components/Navbar';
+import Token from '../components/Token';
 
-const Collection = () => {
+const Collections = () => {
     const [showToken, setShowToken] = useState(false);
     const [collectionName, setCollectionName] = useState("");
     const [collectionAdmin, setCollectionAdmin] = useState("");
@@ -11,7 +9,6 @@ const Collection = () => {
 
     return (
         <>
-            <Navbar />
             <div className="flex flex-col items-center justify-center absolute top-0 left-0 z-10 w-full h-full bg-gradient-to-r from-green-700 to-yellow-700 min-h-screen overflow-y-auto">
                 <form className="flex flex-col p-8" onSubmit={(e) => { e.preventDefault(); setShowToken(true) }}>
                     <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-5xl dark:text-white text-center text-strong">Create "SAT" Token here</h1>
@@ -60,4 +57,4 @@ const Collection = () => {
     )
 }
 
-export default Collection;
+export default Collections;

@@ -1,10 +1,8 @@
-"use client";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import Navbar from './Navbar';
 import Image from 'next/image'
-import Collection from '../app/collection/page';
+import Collections from '../components/Collections';
 
 export default function HomePage() {
     const [isAnimating, setIsAnimating] = useState(false);
@@ -13,13 +11,12 @@ export default function HomePage() {
     const handleNavigate = () => {
         setIsAnimating(true);
         setTimeout(() => {
-            router.push('/collection');
+            router.push('/Collection');
         }, 500); // Duration should match the CSS animation
     };
 
     return (
         <>
-            <Navbar />
             <div className="flex flex-col items-center justify-center absolute top-0 left-0 z-10 w-full h-full bg-gradient-to-r from-blue-700 to-pink-700 overflow-y-auto">
                 <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white text-center mt-40">"Special Appreciation Token"</h1>
                 <h2 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-gray-300 text-center">for the great Artists of Tezos</h2>
@@ -34,7 +31,7 @@ export default function HomePage() {
                 />
                 {isAnimating && (
                     <div className="fixed top-0 left-0 z-10 w-full h-full bg-white circle-animation">
-                        <Collection />
+                        <Collections />
                     </div>
                 )}
             </div>

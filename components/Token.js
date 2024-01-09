@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from 'react'
 
 const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
