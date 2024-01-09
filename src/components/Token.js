@@ -80,7 +80,7 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
                         </svg>
                         <span className="ml-2">Processing Your Request</span>
                     </div>
-                </button> : <button className="p-2 text-white bg-black rounded mb-5"
+                </button> : <button className="p-2 text-white bg-black rounded mb-20"
                     onClick={() => {
                         setIsTransaction(true);
                         setIsSuccess(true);
