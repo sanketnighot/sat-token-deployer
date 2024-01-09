@@ -1,14 +1,114 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { dappClient } from '../utils/walletconnect';
+import contractCode from '../utils/contract_code.json';
+import { char2Bytes } from '@taquito/utils';
+import contractMetadata from '../utils/contract_metadata.json';
 
 const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
     const [isTransaction, setIsTransaction] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [isError, setIsError] = useState(false);
     const [tokenName, setTokenName] = useState("")
+    const [contractMetadataRaw, setContractMetadataRaw] = useState("")
     const [tokenSymbol, setTokenSymbol] = useState("")
     const [tokenSupply, setTokenSupply] = useState("")
     const [tokenUrl, setTokenUrl] = useState("")
     const [tokenDescription, setTokenDescription] = useState("")
+    const [transactionHash, setTransactionHash] = useState("")
+    const [contractName, setContractName] = useState("")
+    const [contractDescription, setContractDescription] = useState("")
+    const FEE_RECIPIENT = "tz1gPGbygTTqXPt3saqpnPW5YviLUGSB36rx";
+    const FEE = 2;
+
+    const initialStorage = {
+        "prim": "Pair",
+        "args": [
+            {
+                "prim": "Pair",
+                "args": [
+                    { "string": collectionAdmin },
+                    { "prim": "Pair", "args": [{ "int": "1" }, [{ "prim": "Elt", "args": [{ "string": collectionAdmin }, { "int": (tokenSupply * 1000000).toString() }] }]] }
+                ]
+            },
+            {
+                "prim": "Pair",
+                "args": [
+                    { "prim": "Pair", "args": [[{ "prim": "Elt", "args": [{ "string": "" }, { "bytes": contractMetadataRaw }] }], []] },
+                    {
+                        "prim": "Pair",
+                        "args": [
+                            { "int": (tokenSupply * 1000000).toString() },
+                            [
+                                {
+                                    "prim": "Elt",
+                                    "args": [
+                                        { "int": "0" },
+                                        {
+                                            "prim": "Pair",
+                                            "args": [
+                                                { "int": "0" },
+                                                [
+                                                    { "prim": "Elt", "args": [{ "string": "decimals" }, { "bytes": "36" }] },
+                                                    { "prim": "Elt", "args": [{ "string": "description" }, { "bytes": char2Bytes(tokenDescription) }] },
+                                                    { "prim": "Elt", "args": [{ "string": "name" }, { "bytes": char2Bytes(tokenName) }] },
+                                                    { "prim": "Elt", "args": [{ "string": "shouldPreferSymbol" }, { "bytes": "74727565" }] },
+                                                    { "prim": "Elt", "args": [{ "string": "symbol" }, { "bytes": char2Bytes(tokenSymbol) }] },
+                                                    {
+                                                        "prim": "Elt",
+                                                        "args": [
+                                                            { "string": "thumbnailUri" }, { "bytes": char2Bytes(tokenUrl) }
+                                                        ]
+                                                    }
+                                                ]
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+
+    useEffect(() => {
+        (async () => {
+            // TODO 5.b - Get the active account
+            const accounts = await dappClient().getAccount();
+            setContractName(collectionName);
+            setContractDescription(collectionDescription);
+        })();
+    }, []);
+
+    const createCollection = async () => {
+        try {
+            setIsTransaction(true);
+            await dappClient().CheckIfWalletConnected()
+            let getContractMetadata = contractMetadata;
+            console.log(getContractMetadata);
+            getContractMetadata["name"] = collectionName;
+            getContractMetadata["description"] = collectionDescription;
+            setContractMetadataRaw(char2Bytes(JSON.stringify(getContractMetadata)));
+            const tezos = await dappClient().tezos();
+            const batch = await tezos.wallet.batch()
+                .withTransfer({ to: FEE_RECIPIENT, amount: FEE })
+                .withOrigination({
+                    code: contractCode,
+                    init: initialStorage,
+                }).send();
+            setTransactionHash(batch.opHash);
+            await batch.confirmation();
+            setIsTransaction(false);
+            setIsSuccess(true);
+        } catch (error) {
+            setIsTransaction(false);
+            setIsError(true);
+            console.log(error);
+        }
+
+
+    }
 
 
     return (
@@ -51,7 +151,7 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
                         placeholder="Enter Token Supply"
                         className="p-2 m-4 border-4 border-gray-300 rounded bg-white bg-opacity-50 border border-white rounded space-y-4 mb-4 placeholder-gray-500 text-black text-center flex-grow"
                         value={tokenSupply}
-                        onChange={(event) => { setTokenSupply(event.target.value) }}
+                        onChange={(event) => { setTokenSupply(parseInt(event.target.value)) }}
                     />
                     <input
                         type="text"
@@ -80,9 +180,8 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
                         <span className="ml-2">Processing Your Request</span>
                     </div>
                 </button> : <button className="p-2 text-white bg-black rounded mb-44"
-                    onClick={() => {
-                        setIsTransaction(true);
-                        setIsSuccess(true);
+                    onClick={async () => {
+                        await createCollection();
                     }}>
                     Create your SAT Token
                 </button>

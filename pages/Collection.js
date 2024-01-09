@@ -1,11 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Token from '../components/Token';
+import { dappClient } from '../utils/walletconnect';
 
 const Collection = () => {
     const [showToken, setShowToken] = useState(false);
     const [collectionName, setCollectionName] = useState("");
     const [collectionAdmin, setCollectionAdmin] = useState("");
     const [collectionDescription, setCollectionDescription] = useState("");
+
+    useEffect(() => {
+        (async () => {
+            // TODO 5.b - Get the active account
+            const accounts = await dappClient().getAccount();
+            console.log(accounts);
+            setCollectionAdmin(accounts.account.address);
+
+        })();
+    }, []);
 
     return (
         <>

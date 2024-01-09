@@ -13,13 +13,12 @@ export const dappClient = () => {
     let instance;
 
     async function init() {
-        const { BeaconWallet } = await import("@taquito/beacon-wallet");
         const dAppInfo = {
-            name: "Squatz",
+            name: "SAT Token Deployer",
             iconUrl: "/assets/logo.png",
             preferredNetwork: NETWORK,
             colorMode: ColorMode.DARK,
-            appUrl: "https://squatz.payperfi.com",
+            appUrl: "https://example.com",
             featuredWallets: ['temple', 'naan', 'kukai', 'trust'],
         };
 
