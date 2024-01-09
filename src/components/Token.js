@@ -13,7 +13,7 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
 
 
     return (
-        <div className="flex flex-col items-center sm:justify-center md:jstify-center absolute top-0 left-0 z-10 w-full h-full bg-gradient-to-r from-sky-700 to-yellow-700 min-h-screen overflow-y-auto">
+        <div className="flex flex-col items-center sm:justify-center md:jstify-center absolute inset-y-12 left-0 z-10 w-full h-full bg-gradient-to-r from-sky-700 to-yellow-700 min-h-screen overflow-y-auto">
             <h2 className="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-3xl dark:text-white text-center mb-10 mt-8">Step 2: Create "SAT" Token</h2>
             <form className="flex flex-col pl-8 pr-8 lg:w-3/6" onSubmit={(e) => { e.preventDefault(); }}>
                 <div className="flex flex-col pl-6 pr-6">
@@ -72,10 +72,7 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
                     ></textarea>
                 </div>
 
-                {isTransaction ? <button className="p-2 text-white bg-black rounded mb-5 " onClick={() => {
-                    setIsTransaction(false)
-                    setIsSuccess(false)
-                }}>
+                {isTransaction ? <button className="p-2 text-black bg-white rounded mb-5 " disabled>
                     <div role="status">
                         <svg aria-hidden="true" className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
@@ -92,8 +89,8 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
                 </button>
                 }
             </form>
-            {isError ? <ErrorToast /> : <></>}
-            {isSuccess ? <SuccessToast /> : <></>}
+            {isError ? <ErrorToast setIsError={setIsError} setIsTransaction={setIsTransaction} /> : <></>}
+            {isSuccess ? <SuccessToast setIsSuccess={setIsSuccess} setIsTransaction={setIsTransaction} /> : <></>}
         </div>
     )
 }
@@ -101,10 +98,10 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
 export default Token;
 
 
-const SuccessToast = () => {
+const SuccessToast = ({ setIsSuccess, setIsTransaction }) => {
     return (
         <div id="toast-success"
-            className="fixed bottom-0 right-0 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 mr-4"
+            className="fixed bottom-0 right-0 flex items-center w-4/5 md:w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 mr-4"
             role="alert">
             <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
                 <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -115,6 +112,7 @@ const SuccessToast = () => {
             <div className="ms-3 text-sm font-normal">Transaction Successful.</div>
             <button type="button" className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close" onClick={() => {
                 setIsSuccess(false);
+                setIsTransaction(false);
             }}>
                 <span class="sr-only">Close</span>
                 <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -125,9 +123,9 @@ const SuccessToast = () => {
     );
 }
 
-const ErrorToast = () => {
+const ErrorToast = ({ setIsError, setIsTransaction }) => {
     return (
-        <div id="toast-danger" className="fixed bottom-0 right-0 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 mr-4" role="alert">
+        <div id="toast-danger" className="fixed bottom-0 right-0 flex items-center w-4/5 md:w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 mr-4" role="alert">
             <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
                 <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
@@ -137,6 +135,7 @@ const ErrorToast = () => {
             <div className="ms-3 text-sm font-normal">An Error Occured. Try Again.</div>
             <button type="button" className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-danger" aria-label="Close" onClick={() => {
                 setIsError(false);
+                setIsTransaction(false);
             }}>
                 <span className="sr-only">Close</span>
                 <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">

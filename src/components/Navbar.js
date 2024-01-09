@@ -6,7 +6,7 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <nav className="shadow-lg z-40 fixed w-full bg-opacity-50">
+        <nav className="drop-shadow-xl z-40 fixed w-full bg-black">
             <div className="max-w-6xl mx-auto px-4">
                 <div className="flex justify-between">
                     <div className="flex space-x-7">
