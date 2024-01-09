@@ -1,30 +1,30 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
-import { dappClient } from '../utils/walletconnect'
+// import { dappClient } from '../../../utils/walletconnect'
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [account, setAccount] = useState(false);
-    useEffect(() => {
-        (async () => {
-            // TODO 5.b - Get the active account
-            const accounts = await dappClient().getAccount();
-            setAccount(accounts.account);
+    // const [account, setAccount] = useState(false);
+    // useEffect(() => {
+    //     (async () => {
+    //         // TODO 5.b - Get the active account
+    //         const accounts = await dappClient().getAccount();
+    //         setAccount(accounts.account);
 
-        })();
-    }, []);
+    //     })();
+    // }, []);
 
-    const onConnectWallet = async () => {
-        await dappClient().connectAccount();
-        const accounts = await dappClient().getAccount();
-        setAccount(accounts.account);
-    };
+    // const onConnectWallet = async () => {
+    //     await dappClient().connectAccount();
+    //     const accounts = await dappClient().getAccount();
+    //     setAccount(accounts.account);
+    // };
 
-    const onDisconnectWallet = async () => {
-        await dappClient().disconnectWallet();
-        setAccount(false);
-    };
+    // const onDisconnectWallet = async () => {
+    //     await dappClient().disconnectWallet();
+    //     setAccount(false);
+    // };
 
     return (
         <nav className="drop-shadow-xl z-40 fixed w-full bg-black">
@@ -84,11 +84,11 @@ const Navbar = () => {
             <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} drop-shadow-xl`}>
                 <Link href="/" className="block py-2 px-4 text-sm hover:bg-black-500 transition duration-300 text-white">Home</Link>
                 <Link href="/collection" className="block py-2 px-4 text-sm hover:bg-black-500 transition duration-300 text-white">Collection</Link>
-                <div className="flex">
+                {/* <div className="flex">
                     <button className="block px-4 py-2 bg-black-500 text-white rounded hover:bg-black-500 transition duration-300" onClick={!account ? onConnectWallet : onDisconnectWallet}>
                         {!account ? "Sync" : "Disconnect"}
                     </button>
-                </div>
+                </div> */}
             </div>
         </nav>
     );
