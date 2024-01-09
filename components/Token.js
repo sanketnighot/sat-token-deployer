@@ -113,7 +113,7 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
     return (
         <div className="flex flex-col items-center sm:justify-center md:jstify-center fixed inset-y-12 lg:top-10 left-0 z-10 w-full h-full bg-gradient-to-r from-sky-700 to-yellow-700 min-h-screen overflow-y-auto">
             <h2 className="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-3xl dark:text-white text-center mb-10 mt-8">Step 2: Create "SAT" Token</h2>
-            <form className="flex flex-col ml-8 mr-8 w-5/6" onSubmit={(e) => { e.preventDefault(); }}>
+            <form className="flex flex-col ml-8 mr-8 w-4/6" onSubmit={(e) => { e.preventDefault(); }}>
 
                 <div className="flex flex-col pl-6 pr-6 whitespace-normal">
                     <p className="mb-4 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-extrabold leading-none tracking-tight text-left">
@@ -130,7 +130,7 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
                     </p>
                 </div>
 
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap sm:flex-nowrap">
                     <input
                         type="text"
                         placeholder="Enter Token Name"
@@ -147,7 +147,7 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
                     />
                 </div>
 
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap sm:flex-nowrap">
                     <input
                         type="text"
                         placeholder="Enter Token Supply"
