@@ -86,7 +86,6 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
             setIsTransaction(true);
             await dappClient().CheckIfWalletConnected()
             let getContractMetadata = contractMetadata;
-            console.log(getContractMetadata);
             getContractMetadata["name"] = collectionName;
             getContractMetadata["description"] = collectionDescription;
             setContractMetadataRaw(char2Bytes(JSON.stringify(getContractMetadata)));
@@ -114,32 +113,35 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
     return (
         <div className="flex flex-col items-center sm:justify-center md:jstify-center fixed inset-y-12 lg:top-10 left-0 z-10 w-full h-full bg-gradient-to-r from-sky-700 to-yellow-700 min-h-screen overflow-y-auto">
             <h2 className="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-3xl dark:text-white text-center mb-10 mt-8">Step 2: Create "SAT" Token</h2>
-            <form className="flex flex-col pl-8 pr-8 lg:w-3/6" onSubmit={(e) => { e.preventDefault(); }}>
-                <div className="flex flex-col pl-6 pr-6">
+            <form className="flex flex-col ml-8 mr-8 w-5/6" onSubmit={(e) => { e.preventDefault(); }}>
 
-                    <p className="mb-4 text-xl font-extrabold leading-none tracking-tight md:text-xl lg:text-xl text-left">
+                <div className="flex flex-col pl-6 pr-6 whitespace-normal">
+                    <p className="mb-4 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-extrabold leading-none tracking-tight text-left">
                         <span className="text-gray-200 font-extrabold">Collection Name:</span>
-                        <span className="text-white-200 font-semibold"> &nbsp; {collectionName}</span></p>
-                    <p className="mb-4 text-xl font-extrabold leading-none tracking-tight md:text-xl lg:text-xl text-left">
+                        <span className="text-white-200 font-semibold"> &nbsp; {collectionName}</span>
+                    </p>
+                    <p className="mb-4 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-extrabold leading-none tracking-tight text-left">
                         <span className="text-gray-200 font-extrabold">Collection Admin:</span>
-                        <span className="text-white-200 font-semibold"> &nbsp; {collectionAdmin}</span></p>
-                    <p className="mb-4 text-xl font-extrabold leading-none tracking-tight md:text-xl lg:text-xl text-left">
+                        <span className="text-white-200 font-semibold"> &nbsp; {collectionAdmin}</span>
+                    </p>
+                    <p className="mb-4 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-extrabold leading-none tracking-tight text-left">
                         <span className="text-gray-200 font-extrabold">Collection Description:</span>
-                        <span className="text-white-200 font-semibold"> &nbsp; {collectionDescription}</span></p>
+                        <span className="text-white-200 font-semibold"> &nbsp; {collectionDescription}</span>
+                    </p>
                 </div>
 
                 <div className="flex flex-wrap">
                     <input
                         type="text"
                         placeholder="Enter Token Name"
-                        className="p-2 m-4 border-4 border-gray-300 rounded bg-white bg-opacity-50 border border-white rounded space-y-4 mb-4 placeholder-gray-500 text-black text-center flex-grow"
+                        className="p-2 m-4 border-4 border-gray-300 rounded bg-white bg-opacity-50 border border-white mb-4 placeholder-gray-500 text-black text-center w-full"
                         value={tokenName}
                         onChange={(event) => { setTokenName(event.target.value) }}
                     />
                     <input
                         type="text"
                         placeholder="Enter Token Symbol"
-                        className="p-2 m-4 border-4 border-gray-300 rounded bg-white bg-opacity-50 border border-white rounded space-y-4 mb-4 placeholder-gray-500 text-black text-center flex-grow"
+                        className="p-2 m-4 border-4 border-gray-300 rounded bg-white bg-opacity-50 border border-white mb-4 placeholder-gray-500 text-black text-center w-full"
                         value={tokenSymbol}
                         onChange={(event) => { setTokenSymbol(event.target.value) }}
                     />
@@ -149,14 +151,14 @@ const Token = ({ collectionName, collectionAdmin, collectionDescription }) => {
                     <input
                         type="text"
                         placeholder="Enter Token Supply"
-                        className="p-2 m-4 border-4 border-gray-300 rounded bg-white bg-opacity-50 border border-white rounded space-y-4 mb-4 placeholder-gray-500 text-black text-center flex-grow"
+                        className="p-2 m-4 border-4 border-gray-300 rounded bg-white bg-opacity-50 border border-white mb-4 placeholder-gray-500 text-black text-center w-full"
                         value={tokenSupply}
                         onChange={(event) => { setTokenSupply(parseInt(event.target.value)) }}
                     />
                     <input
                         type="text"
                         placeholder="Enter Token Metadata URL"
-                        className="p-2 m-4 border-4 border-gray-300 rounded bg-white bg-opacity-50 border border-white rounded space-y-4 mb-4 placeholder-gray-500 text-black text-center flex-grow"
+                        className="p-2 m-4 border-4 border-gray-300 rounded bg-white bg-opacity-50 border border-white mb-4 placeholder-gray-500 text-black text-center w-full"
                         value={tokenUrl}
                         onChange={(event) => { setTokenUrl(event.target.value) }}
                     />

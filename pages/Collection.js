@@ -12,11 +12,13 @@ const Collection = () => {
         (async () => {
             // TODO 5.b - Get the active account
             const accounts = await dappClient().getAccount();
-            console.log(accounts);
-            setCollectionAdmin(accounts.account.address);
+            console.log(accounts.account);
+            if (!accounts.account) {
+                setCollectionAdmin(accounts.account.address);
+            }
 
         })();
-    }, []);
+    }, [collectionAdmin]);
 
     return (
         <>
@@ -39,6 +41,13 @@ const Collection = () => {
                         type="text"
                         placeholder="Enter Admin Address"
                         className="p-2 border-4 border-gray-300 rounded bg-white bg-opacity-50 border border-white rounded space-y-4 mb-4 placeholder-gray-500 text-black text-center"
+                        // defaultValue={async () => {
+                        //     const accounts = await dappClient().getAccount();
+                        //     console.log(accounts);
+                        //     if (accounts == null) {
+                        //         setCollectionAdmin(accounts.account.address);
+                        //     }
+                        // }}
                         value={collectionAdmin}
                         onChange={
                             (event) => {
